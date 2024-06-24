@@ -8,6 +8,7 @@ const logger = require("morgan");
 const { Sequelize } = require("sequelize");
 const { exec } = require("child_process");
 const util = require("util");
+const port = process.env.PORT || 4000;
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -109,7 +110,6 @@ const startServer = async () => {
 
     await runMigrations();
 
-    const port = process.env.PORT || 3000;
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
