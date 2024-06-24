@@ -1,2 +1,0 @@
-# csagov
-CSA Requirements projects
