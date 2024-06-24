@@ -1,0 +1,17 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "12345678",
+    "database": "csagovdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "ezeebudgetdb_owner",
+    "password": "IVMC1rJL2lih@ep-raspy-lab-a2zjkwpn",
+    "database": "csagovdb",
+    "host": "eu-central-1.aws.neon.tech",
+    "dialect": "postgres"
+  }
+}
+
