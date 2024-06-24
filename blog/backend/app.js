@@ -51,19 +51,26 @@ const sequelize = new Sequelize(
 );
 
 // Function to run migrations
-const runMigrations = async () => {
-  const execPromisified = util.promisify(exec);
+async function runMigrations() {
   try {
-    const { stdout, stderr } = await execPromisified(
-      "npx sequelize-cli db:migrate"
-    );
-    console.log("Migration stdout:", stdout);
-    console.error("Migration stderr:", stderr);
+    const migrationsPath = path.join(__dirname, "..");
+    const sequelizeCmd = "npx sequelize-cli db:migrate";
+    exec(sequelizeCmd, { cwd: migrationsPath }, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Migration failed: ${error.message}`);
+        process.exit(1);
+      }
+      if (stderr) {
+        console.log(`Migration stderr: ${stderr}`);
+      }
+      console.log(`Migration stdout: ${stdout}`);
+      console.log("Database migration was successful.");
+    });
   } catch (error) {
-    console.error("Error running migrations:", error);
-    throw error;
+    console.error("Database migration failed: ", error);
+    process.exit(1); // Exit the process with an error code
   }
-};
+}
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
