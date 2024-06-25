@@ -1,9 +1,12 @@
-import { Button} from '@nextui-org/react';
+import { Button, Slider } from '@nextui-org/react';
 import "./App.css"
+import { ThemeSwitcher } from './components/themeSwitcher';
 
 function App() {
   return (
-    <Button>Press me</Button>
+    <main className="dark text-foreground bg-background">
+      <ThemeSwitcher />
+    </main>
   );
 }
 
