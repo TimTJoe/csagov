@@ -23,8 +23,6 @@ Thumbs.db
 coverage/
 
 # Sequelize auto-generated files
-migrations/
-seeders/
 
 # Build directories
 dist/
