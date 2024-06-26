@@ -1,11 +1,11 @@
 const bcrypt = require("bcryptjs");
 const { User } = require("../models");
 const { v4: uuidv4 } = require("uuid");
+const jwt = require("jsonwebtoken")
+require("dotenv").config();
 
 
 exports.create = async (req, res) => {
-  // req.send(User)
-  // console.log(User);
   try {
     const {firstname, lastname, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -21,21 +21,6 @@ exports.create = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-};
-
-exports.read = function (req, res, enxt) {
-  res.send("get all user...");
-  next();
-};
-
-exports.update = function (req, res, next) {
-  res.send("updating a user...");
-  next();
-};
-
-exports.delete = function (req, res, next) {
-  res.send("deleting a user...");
-  next();
 };
 
 exports.login = async (req, res) => {
@@ -58,3 +43,19 @@ exports.login = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.read = function (req, res, enxt) {
+  res.send("get all user...");
+  next();
+};
+
+exports.update = function (req, res, next) {
+  res.send("updating a user...");
+  next();
+};
+
+exports.delete = function (req, res, next) {
+  res.send("deleting a user...");
+  next();
+};
+

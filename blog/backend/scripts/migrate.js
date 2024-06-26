@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
 const path = require("path");
-const debug = require("debug")("your-app-name:migrate"); // Replace 'your-app-name' with your actual app name
+const debug = require("debug")("csablog:migrate"); // Replace 'your-app-name' with your actual app name
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -30,17 +30,17 @@ async function runMigrations() {
     const sequelizeCmd = "npx sequelize-cli db:migrate";
     exec(sequelizeCmd, { cwd: migrationsPath }, (error, stdout, stderr) => {
       if (error) {
-        console.error(`Migration failed: ${error.message}`);
+        log(`Migration failed: ${error.message}`);
         process.exit(1);
       }
       if (stderr) {
-        console.log(`Migration stderr: ${stderr}`);
+        log(`Migration stderr: ${stderr}`);
       }
-      console.log(`Migration stdout: ${stdout}`);
-      console.log("Database migration was successful.");
+      log(`Migration stdout: ${stdout}`);
+      log("Database migration was successful.");
     });
   } catch (error) {
-    console.error("Database migration failed: ", error);
+    log("Database migration failed: ", error);
     process.exit(1); // Exit the process with an error code
   }
 }
