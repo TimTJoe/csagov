@@ -3,7 +3,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      User.hasMany(models.Post, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+      });
     }
   }
   User.init(
@@ -13,16 +16,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           min: 3,
-          isAlpha: true
-        }
+          isAlpha: true,
+        },
       },
       lastname: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           min: 3,
-          isAlpha: true
-        }
+          isAlpha: true,
+        },
       },
       email: {
         type: DataTypes.STRING,
@@ -30,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           isEmail: true,
-        }
+        },
       },
       username: {
         type: DataTypes.STRING,
@@ -38,15 +41,15 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           min: 5,
-          isAlphanumeric: true
-        }
+          isAlphanumeric: true,
+        },
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          min: 8
-        }
+          min: 8,
+        },
       },
     },
     {
