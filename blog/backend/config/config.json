@@ -8,11 +8,11 @@
   },
   "production": {
     "username": "ezeebudgetdb_owner",
-    "password": "IVMC1rJL2lih@ep-raspy-lab-a2zjkwpn",
+    "password": "IVMC1rJL2lih",
     "database": "csagovdb",
-    "host": "eu-central-1.aws.neon.tech",
+    "host": "ep-raspy-lab-a2zjkwpn.eu-central-1.aws.neon.tech",
     "dialect": "postgres",
-    "ssl": true,
+    "ssl": true, 
     "dialectOptions": {
       "ssl": {
         "require": true
