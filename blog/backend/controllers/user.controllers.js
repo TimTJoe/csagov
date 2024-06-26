@@ -1,13 +1,12 @@
 const bcrypt = require("bcryptjs");
 const { User } = require("../models");
 const { v4: uuidv4 } = require("uuid");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
-
 
 exports.create = async (req, res) => {
   try {
-    const {firstname, lastname, email, password } = req.body;
+    const { firstname, lastname, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       id: uuidv4(),
@@ -16,7 +15,7 @@ exports.create = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    await user.save()
+    await user.save();
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -44,8 +43,14 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.read = function (req, res, enxt) {
-  res.send("get all user...");
+exports.read = async function (req, res, next) {
+  try {
+    const users = await User.findAll();
+    if (!users) return res.status(404).json({ error: "No User" });
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
   next();
 };
 
@@ -54,8 +59,13 @@ exports.update = function (req, res, next) {
   next();
 };
 
-exports.delete = function (req, res, next) {
-  res.send("deleting a user...");
+exports.delete = async function (req, res, next) {
+  try {
+    let user = await User.findOne({ where: { id: req.params.id } });
+    await user.destroy({ force: true });
+    res.status(200).json({ message: "User deleted" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
   next();
 };
-
