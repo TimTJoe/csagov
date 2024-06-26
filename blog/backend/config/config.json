@@ -11,7 +11,12 @@
     "password": "IVMC1rJL2lih@ep-raspy-lab-a2zjkwpn",
     "database": "csagovdb",
     "host": "eu-central-1.aws.neon.tech",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true
+      }
+    }
   }
 }
-
