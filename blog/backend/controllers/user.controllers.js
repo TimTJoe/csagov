@@ -54,16 +54,35 @@ exports.read = async function (req, res, next) {
   next();
 };
 
-exports.update = function (req, res, next) {
-  res.send("updating a user...");
+exports.update = async function (req, res, next) {
+   try {
+     const { password, ...updateData } = req.body;
+     if (password) {
+       updateData.password = await bcrypt.hash(password, 10);
+     }
+     const [updated] = await User.update(updateData, {
+       where: { id: req.params.id },
+     });
+     if (!updated) {
+       return res.status(404).json({ error: "User not found" });
+     }
+     const updatedUser = await User.findByPk(req.params.id);
+     res.status(200).json(updatedUser);
+   } catch (error) {
+     res.status(400).json({ error: error.message });
+   }
   next();
 };
 
 exports.delete = async function (req, res, next) {
   try {
-    let user = await User.findOne({ where: { id: req.params.id } });
-    await user.destroy({ force: true });
-    res.status(200).json({ message: "User deleted" });
+    const deleted = await User.destroy({
+      where: { id: req.params.id },
+    });
+    if (!deleted) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(204).json({message: "User deleted"});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
