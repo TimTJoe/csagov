@@ -1,18 +1,17 @@
-const { Post, User } = require("../models");
+const { Post, User, Comment } = require("../models");
 const { v4: uuidv4 } = require("uuid");
 
 exports.create = async (req, res) => {
   try {
-    const { title, category, body, user_id } = req.body;
-    const post = await Post.create({
+    const { comment, post_id, user_id } = req.body;
+    const _comment = await Comment.create({
       id: uuidv4(),
-      title,
-      category,
-      body,
+      comment,
+      post_id,
       user_id,
     });
-    await post.save();
-    res.status(201).json(post);
+    await _comment.save();
+    res.status(201).json(_comment);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -20,9 +19,9 @@ exports.create = async (req, res) => {
 
 exports.read = async function (req, res) {
   try {
-    const posts = await Post.findAll({ include: User });
-    if (!posts) return res.status(404).json({ error: "No Post" });
-    res.status(200).json({ posts });
+    const comments = await Comment.findAll({ include: [User, Post] });
+    if (!comments) return res.status(404).json({ error: "No Comment" });
+    res.status(200).json({ comments });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -30,22 +29,22 @@ exports.read = async function (req, res) {
 
 exports.find = async function (req, res) {
   try {
-    const post = await Post.findOne({
+    const comment = await Comment.findOne({
       where: { id: req.params.id },
-      include: User,
+      include: [User, Post],
     });
-    if (!post) return res.status(404).json({ error: "No Post" });
-    res.status(200).json(post);
+    if (!comment) return res.status(404).json({ error: "No comment" });
+    res.status(200).json(comment);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-exports.author = async function (req, res) {
+exports.commenter = async function (req, res) {
   try {
-    const posts = await Post.findAll({ where: { user_id: req.params.id } });
-    if (!posts) return res.status(404).json({ error: "No Posts" });
-    res.status(200).json(posts);
+    const comments = await Comment.findAll({ where: { user_id: req.params.id } });
+    if (!comments) return res.status(404).json({ error: "No comments" });
+    res.status(200).json(comments);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -55,13 +54,13 @@ exports.update = async function (req, res) {
   try {
     const { ...updateData } = req.body;
 
-    const [updated] = await Post.update(updateData, {
+    const [updated] = await Comment.update(updateData, {
       where: { id: req.params.id },
     });
     if (!updated) {
-      return res.status(404).json({ error: "Post not found" });
+      return res.status(404).json({ error: "Comment not found" });
     }
-    const updatedPost = await Post.findByPk(req.params.id);
+    const updatedPost = await Comment.findByPk(req.params.id);
     res.status(200).json(updatedPost);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -80,4 +79,4 @@ exports.delete = async function (req, res) {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}
+};
