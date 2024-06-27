@@ -4,6 +4,11 @@ const { v4: uuidv4 } = require("uuid");
 exports.create = async (req, res) => {
   try {
     const { comment, post_id, user_id } = req.body;
+    let post = Post.findOne({ where: { id: post_id } })
+    if (!post) return res.status(404).json({ error: "Empty post" });
+    let user = User.findOne({ where: { id: user_id } })
+    if (!user) return res.status(404).json({ error: "No user" });
+    
     const _comment = await Comment.create({
       id: uuidv4(),
       comment,

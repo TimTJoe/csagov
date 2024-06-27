@@ -1,10 +1,14 @@
-const { Like, User, Like } = require("../models");
+const { Post, User, Like } = require("../models");
 const { v4: uuidv4 } = require("uuid");
 
 exports.create = async (req, res) => {
   try {
     const { post_id, user_id } = req.body;
-    const like = await Link.create({
+    let post = Post.findOne({ where: { id: post_id } });
+    if (!post) return res.status(404).json({ error: "Empty post" });
+    let user = User.findOne({ where: { id: user_id } });
+    if (!user) return res.status(404).json({ error: "No user" });
+    const like = await Like.create({
       id: uuidv4(),
       post_id,
       user_id,
@@ -18,7 +22,7 @@ exports.create = async (req, res) => {
 
 exports.read = async function (req, res) {
   try {
-    const Likes = await Like.findAll({ include: User });
+    const Likes = await Like.findAll({ include: [User, Post] });
     if (!Likes) return res.status(404).json({ error: "No Like" });
     res.status(200).json({ Likes });
   } catch (error) {
@@ -30,7 +34,7 @@ exports.find = async function (req, res) {
   try {
     const Like = await Like.findOne({
       where: { id: req.params.id },
-      include: User,
+      include: [User, Post],
     });
     if (!Like) return res.status(404).json({ error: "No Like" });
     res.status(200).json(Like);
@@ -83,7 +87,10 @@ exports.delete = async function (req, res) {
     if (!deleted) {
       return res.status(404).json({ error: "Like not found" });
     }
-    res.status(204).json({ message: "Like deleted" });
+    res.status(200).json({
+      message: "Like deleted",
+      deleted,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
