@@ -1,20 +1,22 @@
-import { useState } from "react";
-import homeServices from "../../services/home.services";
+import { useEffect, useState } from "react";
+import homeServices from "@services/home.services";
 
 const HomePage = () => {
-  const [response, setResponse] = useState(null)
-  const handleTest = async () => {
+  const [greeting, setGreeting] = useState(null)
+
+  const handleGreeting = async () => {
     const res = await homeServices.initializer()
-    setResponse(res.data.message)
+    setGreeting(res.data.message)
   }
+
+  useEffect(() => { handleGreeting() }, [])
   return (
     <>
-      <nav>
+      <nav className="top">
         <a href="signup">Signup</a>
       </nav>
       <main className="responsive">
-        {response}
-        <button onClick={handleTest}>Test</button>
+        {greeting}
       </main>
       <footer>Footer</footer>
     </>
