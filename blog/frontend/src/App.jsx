@@ -1,5 +1,5 @@
 import "./App.css"
-import Signup from "./pages/Signup";
+import Signup from "./pages/register";
 
 function App() {
 

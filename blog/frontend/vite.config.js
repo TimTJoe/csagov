@@ -12,16 +12,16 @@ export default defineConfig({
     alias: [
       {
         find: "@services",
-        replacement: path.resolve(__dirname, "./src/services"),
+        replacement: path.resolve(__dirname, "src/services"),
       },
       {
         find: "@components",
-        replacement: path.resolve(__dirname, "./src/components"),
+        replacement: path.resolve(__dirname, "src/components"),
       },
-      { find: "@pages", replacement: path.resolve(__dirname, "./src/pages") },
-      { find: "@redux", replacement: path.resolve(__dirname, "./src/redux") },
-      { find: "@assets", replacement: path.resolve(__dirname, "./src/assets") },
-      { find: "@hooks", replacement: path.resolve(__dirname, "./src/hooks") },
+      { find: "@pages", replacement: path.resolve(__dirname, "src/pages") },
+      { find: "@redux", replacement: path.resolve(__dirname, "src/redux") },
+      { find: "@assets", replacement: path.resolve(__dirname, "src/assets") },
+      { find: "@hooks", replacement: path.resolve(__dirname, "src/hooks") },
     ],
   },
 });
