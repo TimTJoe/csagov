@@ -4,9 +4,9 @@ import Signup from "./pages/Signup";
 function App() {
 
   return (
-       <main className={`text-foreground bg-background`} > 
-        <Signup />
-      </main> 
+    <main  >
+      <a href="signup">sign up</a>
+    </main>
   );
 }
 

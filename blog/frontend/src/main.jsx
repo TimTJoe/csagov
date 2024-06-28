@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { NextUIProvider } from '@nextui-org/react'
+import { RouterProvider } from "react-router-dom";
+import { Routers } from './router.jsx';
 
-import App from './App.jsx'
 import './index.css'
+import "beercss"
+import "material-dynamic-colors"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <NextUIProvider>
-      <App />
-    </NextUIProvider>
+    <RouterProvider router={Routers} />
   </React.StrictMode>,
 )

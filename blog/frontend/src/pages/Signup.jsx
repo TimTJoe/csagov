@@ -1,37 +1,54 @@
-import { Button, Slider, Input } from '@nextui-org/react';
-import styled from "styled-components"
+import { Main, Formbox } from "./signup/signup.comp";
+import { useState } from 'react';
 
-const Main = styled.main`
-    width: 100%;
-    height:100vh ;
-    display: grid;
-    place-items: center;
-    place-content: center;
-    gap: 23px;
-    border: solid red;
-`
+import userServices from "../services/user.services";
 
-const Formbox = styled.form`
-    width: 450px;
-    background-color: white;
-    min-height: 250px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-`
 
 const Signup = () => {
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const [formData, setFormData] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: ""
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        userServices.getUser()
+        e.preventDefault();
+        // try {
+        //     userServices.signup(formData);
+        //     setSuccess(true);
+        //     setError(null);
+        // } catch (error) {
+        //     setError(error.response?.data.error);
+        //     setSuccess(false);
+        // }
+    };
+
+
+
     return (
         <Main>
-            <h1>Create New Account {apiUrl}</h1>
-            <Formbox method='post'>
-                <Input size='lg' type='text' name={"firstname"} placeholder='First Name' />
-                <Input size='lg' type='text' name={"lastname"} placeholder='Last Name' />
-                <Input size='lg' type='text' name={"email"} placeholder='Email  ' />
-                <Input size='lg' type='password' name={"password"} placeholder='********' />
-                <Button size='lg' color='primary'>Create Account</Button>
+            <h1>Create New Account </h1>
+            <Formbox onSubmit={handleSubmit} method='post'>
+                <Input onChange={handleChange} value={formData.firstname} size='lg' type='text' name={"firstname"} placeholder='First Name' />
+                <Input onChange={handleChange} value={formData.lastname} size='lg' type='text' name={"lastname"} placeholder='Last Name' />
+                <Input onChange={handleChange} value={formData.email} size='lg' type='text' name={"email"} placeholder='Email  ' />
+                <Input onChange={handleChange} value={formData.password} size='lg' type='password' name={"password"} placeholder='********' />
+                <Button type='submit' size='lg' color='primary'>Create Account</Button>
             </Formbox>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {success && <p style={{ color: 'green' }}>Registration successful!</p>}
         </Main>
     );
 }
