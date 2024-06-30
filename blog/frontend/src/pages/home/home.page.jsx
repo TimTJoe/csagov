@@ -13,12 +13,10 @@ const HomePage = () => {
   return (
     <>
       <nav className="top">
-        <a href="signup">Signup</a>
       </nav>
       <main className="responsive">
         {greeting}
       </main>
-      <footer>Footer</footer>
     </>
   );
 };
