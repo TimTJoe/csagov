@@ -19,8 +19,9 @@ const SigninPage = () => {
     } = useForm();
 
     const [values, setValues] = useState({
-        email: "",
-        password: "",
+        title: "",
+        category: "",
+        post: ""
     });
 
     const handleErrors = (errors) => { console.error(errors) };
