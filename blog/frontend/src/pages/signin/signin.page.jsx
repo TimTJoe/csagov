@@ -36,7 +36,7 @@ const SigninPage = () => {
             let res = await userServices.login(values)
             if (res.status == "201") {
                 setLoading(false)
-                goto("/home")
+                console.log(res.data)
             } else {
                 throw new Error({ message: "status error" })
             }
