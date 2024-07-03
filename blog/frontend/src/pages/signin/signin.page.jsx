@@ -34,11 +34,11 @@ const SigninPage = () => {
         setLoading(true)
         try {
             let res = await userServices.login(values)
-            if (res.status == "201") {
+            if (res.status <= "201") {
                 setLoading(false)
                 console.log(res.data)
             } else {
-                throw new Error({ message: "status error" })
+                throw new Error({ message: "User not found." })
             }
         } catch (error) {
             setError("server", {

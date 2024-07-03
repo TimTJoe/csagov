@@ -54,78 +54,81 @@ const SignupPage = () => {
 
 
     return (
-        <>
            
-            <main className="responsive border round padding" style={{
-                maxWidth: "450px",
-                margin: "1rem auto"
-                
+           <main className="responsive" style={
+            {
+                display: "grid",
+                "placeItems": "center"
             }}>
-            <h5>Sign up</h5>
-                    <p className="large-text">To start blogging.</p>
-                    {loading && <progress></progress>}
-                    <Form
-                        onSubmit={handleSubmit(handleSave, handleErrors)}
-                        autoComplete="off"
+                <div className="border round padding" style={{
+                    width: "450px",
+                    minHeight: "275px"
+                }}>
+                <h5>Sign up</h5>
+                        <p className="large-text">To start blogging.</p>
+                        {loading && <progress></progress>}
+                        <Form
+                            onSubmit={handleSubmit(handleSave, handleErrors)}
+                            autoComplete="off"
 
-                    >
-                        <div className={`${classes} ${errors.firstname && "invalid"}`}>
-                            <input
-                                required
-                                type="text"
-                                value={values.firstname}
-                                {...register("firstname", Pattern.title)}
-                                onChange={handleChange}
-                            />
-                            <label>First name</label>
-                            {
-                                errors.firstname ? <span className="error">{errors.firstname.message}</span> : null
-                            }
-                        </div>
-                        <div className={`${classes} ${errors.lastname && "invalid"}`}>
-                            <input
-                                required
-                                type="text"
-                                value={values.lastname}
-                                {...register("lastname", Pattern.title)}
-                                onChange={handleChange}
-                            />
-                            <label>Last name</label>
-                            {
-                                errors.lastname ? <span className="error">{errors.lastname.message}</span> : null
-                            }
-                        </div>
-                        <div className={`${classes} ${errors.email && "invalid"}`}>
-                            <input
-                                required
-                                type="email"
-                                value={values.email}
-                                {...register("email", Pattern.email)}
-                                onChange={handleChange}
-                            />
-                            <label>Email</label>
-                            {
-                                errors.email ? <span className="error">{errors.email.message}</span> : null
-                            }
-                        </div>
-                        <div className={`${classes} ${errors.password && "invalid"}`}>
-                            <input
-                                required
-                                type="password"
-                                value={values.password}
-                                {...register("password", Pattern.password)}
-                                onChange={handleChange}
-                            />
-                            <label >Password</label>
-                            {
-                                errors.password ? <span className="error">{errors.password.message}</span> : null
-                            }
-                        </div>
-                        <button type="submit" className="responsive round large no-elevate">Create Account</button>
-                    </Form>
-                    <p className="center-align padding"> Already have an account? <a href="signin">Log in</a></p>
+                        >
+                            <div className={`${classes} ${errors.firstname && "invalid"}`}>
+                                <input
+                                    required
+                                    type="text"
+                                    value={values.firstname}
+                                    {...register("firstname", Pattern.title)}
+                                    onChange={handleChange}
+                                />
+                                <label>First name</label>
+                                {
+                                    errors.firstname ? <span className="error">{errors.firstname.message}</span> : null
+                                }
+                            </div>
+                            <div className={`${classes} ${errors.lastname && "invalid"}`}>
+                                <input
+                                    required
+                                    type="text"
+                                    value={values.lastname}
+                                    {...register("lastname", Pattern.title)}
+                                    onChange={handleChange}
+                                />
+                                <label>Last name</label>
+                                {
+                                    errors.lastname ? <span className="error">{errors.lastname.message}</span> : null
+                                }
+                            </div>
+                            <div className={`${classes} ${errors.email && "invalid"}`}>
+                                <input
+                                    required
+                                    type="email"
+                                    value={values.email}
+                                    {...register("email", Pattern.email)}
+                                    onChange={handleChange}
+                                />
+                                <label>Email</label>
+                                {
+                                    errors.email ? <span className="error">{errors.email.message}</span> : null
+                                }
+                            </div>
+                            <div className={`${classes} ${errors.password && "invalid"}`}>
+                                <input
+                                    required
+                                    type="password"
+                                    value={values.password}
+                                    {...register("password", Pattern.password)}
+                                    onChange={handleChange}
+                                />
+                                <label >Password</label>
+                                {
+                                    errors.password ? <span className="error">{errors.password.message}</span> : null
+                                }
+                            </div>
+                            <button type="submit" className="responsive round large no-elevate">Create Account</button>
+                        </Form>
+                        <p className="center-align padding"> Already have an account? <a href="signin">Log in</a></p>
+                </div>
             </main>
-        </>
     );
 }
 
