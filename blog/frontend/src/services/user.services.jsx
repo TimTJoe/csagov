@@ -2,10 +2,8 @@ import axios from 'axios';
 
 
 const API_URL = import.meta.env.VITE_NODE_ENV === "production" ? import.meta.env.VITE_API_URL : import.meta.env.VITE_DEV_API_URL;
-const signup = async (userData) => {
-    const response = await axios.post(`${API_URL}/users/signup`, userData, {
-        headers: { 'Content-Type': "application/json" }
-    });
+const signup = async (credentials) => {
+    const response = await axios.post(`${API_URL}/users/signup`, credentials);
     return response
 };
 

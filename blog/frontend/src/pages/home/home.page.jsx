@@ -20,8 +20,10 @@ const HomePage = () => {
     } = useForm();
 
     const [values, setValues] = useState({
-        email: "",
-        password: "",
+      title: "",
+      category: "",
+      body: "",
+      user_id: "",
     });
 
     const handleErrors = (errors) => { console.error(errors) };
@@ -63,27 +65,46 @@ const HomePage = () => {
         maxWidth: "668px",
         margin: "0 auto"
       }}>
+
+        
+
       <form onSubmit={handleSubmit(handleSave, handleErrors)} className="border round" style={{padding: "2rem"}} >
         <h5>Create New Post</h5>
+
         <div className="field label round fill border">
         <input type="text" name="title" />
         <label> Title </label>
         { 
-          errors.password ? 
-          <span className="error">{errors.password.message}</span> : null
+          errors.title ? 
+          <span className="error">{errors.title.message}</span> : null
         }
         </div>
-        <div className="field label fill round border large">
-          <textarea name="post" id="post" 
-          style={{width: "100%", display: "block"}} cols={30} rows={10}></textarea>
-          <label>Post</label> 
+
+        <div className="field label round fill border">
+        <input type="text" name="category" />
+        <label> Category </label>
+        { 
+          errors.category ? 
+          <span className="error">{errors.category.message}</span> : null
+        }
         </div>
+
+        <div className="field textarea label border fill round extra">
+            <textarea></textarea>
+            { 
+          errors.post ? 
+          <span className="error">{errors.title.message}</span> : null
+        }
+        <label>Post Body</label>
+        </div>
+
+        <button className="large border">Create Post</button>
       </form>
 
 
-     <article class="border">
-        <div class="row">
-          <div class="max">
+     <article className="border">
+        <div className="row">
+          <div className="max">
             <h5>Title</h5>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus cum eum consequuntur placeat excepturi aliquam aspernatur, error consequatur corrupti obcaecati quibusdam exercitationem! Rem atque esse natus mollitia culpa ipsum. Debitis?</p>
           </div>
@@ -96,9 +117,9 @@ const HomePage = () => {
       <dialog>
         <h5>Default</h5>
         <div>Some text here</div>
-        <nav class="right-align no-space">
-          <button class="transparent link">Cancel</button>
-          <button class="transparent link">Confirm</button>
+        <nav className="right-align no-space">
+          <button className="transparent link">Cancel</button>
+          <button className="transparent link">Confirm</button>
         </nav>
       </dialog>
      </main>
