@@ -55,24 +55,19 @@ const SignupPage = () => {
 
     return (
         <>
-            <header>
-                <nav>
-                    <h5 className="max">CSA Blog</h5>
-                    <button className="border no-elevate large">Log in</button>
-                </nav>
-            </header>
-            <Main className="responsive grid">
-                <div className="s12 m8 8 padding">
-                    <h2>Create New Account</h2>
-                    <p className="large-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta nulla a odio illum voluptas doloribus repellat esse voluptatem maiores nam voluptatibus at, cupiditate animi doloremque, sit itaque! Itaque, a corrupti!</p>
-                </div>
-                <FormContainer className="s12 m4 4 border round">
-                    <h5>Sign up</h5>
+           
+            <main className="responsive border round padding" style={{
+                maxWidth: "450px",
+                margin: "1rem auto"
+                
+            }}>
+            <h5>Sign up</h5>
                     <p className="large-text">To start blogging.</p>
                     {loading && <progress></progress>}
                     <Form
                         onSubmit={handleSubmit(handleSave, handleErrors)}
                         autoComplete="off"
+
                     >
                         <div className={`${classes} ${errors.firstname && "invalid"}`}>
                             <input
@@ -128,8 +123,8 @@ const SignupPage = () => {
                         </div>
                         <button type="submit" className="responsive round large no-elevate">Create Account</button>
                     </Form>
-                </FormContainer>
-            </Main>
+                    <p className="center-align padding"> Already have an account? <a href="signin">Log in</a></p>
+            </main>
         </>
     );
 }
