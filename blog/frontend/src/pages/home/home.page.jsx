@@ -56,7 +56,7 @@ const HomePage = () => {
   useEffect(() => { handleGreeting() }, [])
   
   return (
-    <>
+    <div style={{maxHeight: "98vh"}}>
      <Navbar />
      <main className="responsive" style={{
         maxWidth: "668px",
@@ -65,38 +65,7 @@ const HomePage = () => {
 
         
 
-      <form onSubmit={handleSubmit(handleSave, handleErrors)} className="border round" style={{padding: "2rem"}} >
-        <h5>Create New Post</h5>
-
-        <div className="field label round fill border">
-        <input type="text" name="title" />
-        <label> Title </label>
-        { 
-          errors.title ? 
-          <span className="error">{errors.title.message}</span> : null
-        }
-        </div>
-
-        <div className="field label round fill border">
-        <input type="text" name="category" />
-        <label> Category </label>
-        { 
-          errors.category ? 
-          <span className="error">{errors.category.message}</span> : null
-        }
-        </div>
-
-        <div className="field textarea label border fill round extra">
-            <textarea></textarea>
-            { 
-          errors.post ? 
-          <span className="error">{errors.title.message}</span> : null
-        }
-        <label>Post Body</label>
-        </div>
-
-        <button className="large border">Create Post</button>
-      </form>
+     
 
 
      <article className="border">
@@ -111,16 +80,55 @@ const HomePage = () => {
           <button className="border ">Delete</button>
         </nav>
       </article>
-      <dialog>
-        <h5>Default</h5>
-        <div>Some text here</div>
-        <nav className="right-align no-space">
-          <button className="transparent link">Cancel</button>
-          <button className="transparent link">Confirm</button>
-        </nav>
-      </dialog>
      </main>
-    </>
+      <dialog id="dialog" style={{minWidth: "568px"}}>
+
+        <h5>Create New Post</h5>
+        <div className="space"></div>
+
+        <form 
+        onSubmit={handleSubmit(handleSave, handleErrors)} 
+        style={{width: "100%"}}>
+
+          <div className="field label round fill border">
+          <input type="text" name="title" />
+          <label> Title </label>
+          { 
+            errors.title ? 
+            <span className="error">{errors.title.message}</span> : null
+          }
+          </div>
+
+          <div className="field label round fill border">
+          <input type="text" name="category" />
+          <label> Category </label>
+          { 
+            errors.category ? 
+            <span className="error">{errors.category.message}</span> : null
+          }
+          </div>
+
+          <div className="field textarea label border fill round extra">
+              <textarea></textarea>
+              { 
+            errors.post ? 
+            <span className="error">{errors.title.message}</span> : null
+          }
+          <label>Post Body</label>
+          </div>
+
+            <button data-ui="#dialog" className="responsive transparent">Cancel</button>
+            <button class="responsive" type="submit">Publish</button>
+        </form>
+      </dialog>
+
+      <div style={{position: "absolute", bottom: "1rem", left: "1rem"}}>
+        <button data-ui="#dialog" class="extend square round primary">
+          <i>add</i>
+          <span>Create Post</span>
+        </button>
+      </div>
+    </div>
   );
 };
 
