@@ -1,7 +1,11 @@
 import axios from "axios"
-import helpers from "./helper.services"
+import React from 'react';
 
-const API_URL = helpers.get.apiUrl()
+import helpers from "./helper.services"
+import useApiUrl from "@hooks/useApiUrl";
+import helperServices from "./helper.services";
+
+const API_URL = helperServices.getAPIURL()
 
 const initializer = async () => {
     const response = await axios.get(`${API_URL}`)

@@ -36,11 +36,7 @@ const HomePage = () => {
         setLoading(true)
         try {
             let res = await homeServices.create(values)
-            if (res.status == "201") {
-               //set post, so the page will render with new content
-            } else {
-                throw new Error({ message: "status error" })
-            }
+            
         } catch (error) {
             setError("server", {
                 error,
@@ -58,6 +54,7 @@ const HomePage = () => {
   }
 
   useEffect(() => { handleGreeting() }, [])
+  
   return (
     <>
      <Navbar />

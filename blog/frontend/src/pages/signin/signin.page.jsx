@@ -33,18 +33,15 @@ const SigninPage = () => {
     async function handleSave() {
         setLoading(true)
         try {
+            setLoading(false)
             let res = await userServices.login(values)
-            if (res.status <= "201") {
-                setLoading(false)
-                console.log(res.data)
-            } else {
-                throw new Error({ message: "User not found." })
-            }
+              console.log(res.data)
         } catch (error) {
-            setError("server", {
-                error,
+            let data = error.response.data
+            console.log(data)
+            setError(data.type, {
                 type: "custom",
-                message: "Technical Error. Try again.",
+                message: data.message,
             });
         }
     }
