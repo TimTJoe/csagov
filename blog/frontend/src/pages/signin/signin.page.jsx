@@ -34,11 +34,12 @@ const SigninPage = () => {
     async function handleSave() {
         setLoading(true)
         try {
-            setLoading(false)
             let res = await userServices.login(values)
             const user = localdb.setItem("user", {...res.data.user, isAuth: true})
             goto("/")
         } catch (error) {
+            setLoading(false)
+
             let data = await error.response.data
             console.log(data)
             setError(data.type, {

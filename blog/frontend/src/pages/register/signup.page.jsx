@@ -35,17 +35,13 @@ const SignupPage = () => {
         setLoading(true)
         try {
             let res = await userServices.signup(values)
-            if (res.status == "201") {
-                setLoading(false)
-                goto("/signin")
-            } else {
-                throw new Error({ message: "status error" })
-            }
+            goto("/signin")
+            
         } catch (error) {
-            setError("server", {
-                error,
+            const data = error.reponse.data
+            setError(data.type, {
                 type: "custom",
-                message: "Technical Error. Try again.",
+                message: data.message,
             });
         }
     }
