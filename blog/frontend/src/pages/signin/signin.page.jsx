@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import Pattern from "@components/Pattern";
 import userServices from "@services/user.services";
+import localdb from "@services/localdb.services";
 
 
 const SigninPage = () => {
@@ -35,9 +36,10 @@ const SigninPage = () => {
         try {
             setLoading(false)
             let res = await userServices.login(values)
-              console.log(res.data)
+            const user = localdb.setItem("user", {...res.data.user, isAuth: true})
+            goto("/")
         } catch (error) {
-            let data = error.response.data
+            let data = await error.response.data
             console.log(data)
             setError(data.type, {
                 type: "custom",

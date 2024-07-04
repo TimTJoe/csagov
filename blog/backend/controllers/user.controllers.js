@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ where: { email } });
     if (!user) return res.status(404).json({ 
       type: "email",
-      message: "User not found"
+      message: "Account doesn't exist. "
      });
 
     const validPassword = await bcrypt.compare(password, user.password);
@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
       return res.status(400).json(
     { 
       type: "password",
-      message: "Invalid password"
+      message: "Password is Incorrect."
      }
   );
 
@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.status(200).json({ token });
+    res.status(200).json({ token, user });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
