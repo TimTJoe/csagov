@@ -7,6 +7,10 @@ const create = (credentials) => {
 const read = (id) => {
     return axios.get(`${API_URL}/posts/` + id );
 }
+
+const getAllPosts = () => {
+    return axios.get(`${API_URL}/posts`)
+}
 const update = (credentials) => {
     return axios.put(`${API_URL}/posts`, credentials);
 }
@@ -17,4 +21,4 @@ const remove = (id) => {
 
 
 
-export default {create, read, update, remove}
+export default {create, read, update, remove, getAllPosts}

@@ -2,6 +2,7 @@ import axios from "axios"
 
 import helperServices from "./helper.services";
 import localdbServices from "./localdb.services";
+import postServices from "./post.services";
 
 const API_URL = helperServices.getAPIURL()
 
@@ -14,5 +15,6 @@ function logout() {
     localdbServices.deleteItem("user")
     return true
 }
+
 
 export default { initializer, logout }

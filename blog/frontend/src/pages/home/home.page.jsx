@@ -4,12 +4,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Pattern from "@components/Pattern";
 import homeServices from "@services/home.services";
+import postServices from "@services/post.services";
 
 
 const HomePage = () => {
     const goto = useNavigate()
 
     const [loading, setLoading] = useState(false)
+    const [allPosts, setAllPosts] = useState(null)
 
     const {
         control,
@@ -36,6 +38,7 @@ const HomePage = () => {
         setLoading(true)
         try {
             let res = await homeServices.create(values)
+            console.log(res.data)
             
         } catch (error) {
             setError("server", {
@@ -46,14 +49,29 @@ const HomePage = () => {
         }
     }
 
+    const handleGreeting = async () => {
+      const res = await homeServices.initializer()
+      console.log(res.data.message)
+    }
+
+    
+
+    
+
+    useEffect(() => { 
+      handleGreeting()
+
+      const getPosts = async () => {
+      let res =  await postServices.getAllPosts()
+      console.log(res.data.posts)
+      setAllPosts(res.data.posts)
+      }
+
+      getPosts()
+      
+     }, [])
 
 
-  const handleGreeting = async () => {
-    const res = await homeServices.initializer()
-    console.log(res.data.message)
-  }
-
-  useEffect(() => { handleGreeting() }, [])
   
   return (
     <div style={{maxHeight: "98vh"}}>
@@ -67,31 +85,44 @@ const HomePage = () => {
 
      
 
+      {
+        allPosts && 
+          allPosts.map(post => (
+            <article className="border">
+               <div className="row">
+                 <div className="max">
+                   <h5>{post.title}</h5>
+                   <p>{post.body}</p>
+                 </div>
+               </div>
+               <nav>
+                 <button>Edit</button>
+                 <button className="border ">Delete</button>
+               </nav>
+             </article>
 
-     <article className="border">
-        <div className="row">
-          <div className="max">
-            <h5>Title</h5>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus cum eum consequuntur placeat excepturi aliquam aspernatur, error consequatur corrupti obcaecati quibusdam exercitationem! Rem atque esse natus mollitia culpa ipsum. Debitis?</p>
-          </div>
-        </div>
-        <nav>
-          <button>Edit</button>
-          <button className="border ">Delete</button>
-        </nav>
-      </article>
+          ))
+
+        
+      }
+
+
      </main>
+
+
       <dialog id="dialog" style={{minWidth: "568px"}}>
 
         <h5>Create New Post</h5>
         <div className="space"></div>
+        {loading && <progress></progress>}
+
 
         <form 
         onSubmit={handleSubmit(handleSave, handleErrors)} 
         style={{width: "100%"}}>
 
           <div className="field label round fill border">
-          <input type="text" name="title" />
+          <input type="text" {...register("title")} onChange={handleChange} required/>
           <label> Title </label>
           { 
             errors.title ? 
@@ -100,7 +131,7 @@ const HomePage = () => {
           </div>
 
           <div className="field label round fill border">
-          <input type="text" name="category" />
+          <input type="text" {...register("category")} onChange={handleChange} required/>
           <label> Category </label>
           { 
             errors.category ? 
@@ -109,10 +140,10 @@ const HomePage = () => {
           </div>
 
           <div className="field textarea label border fill round extra">
-              <textarea></textarea>
+              <textarea {...register("body")} onChange={handleChange} required></textarea>
               { 
-            errors.post ? 
-            <span className="error">{errors.title.message}</span> : null
+            errors.body ? 
+            <span className="error">{errors.body.message}</span> : null
           }
           <label>Post Body</label>
           </div>
@@ -128,6 +159,7 @@ const HomePage = () => {
           <span>Create Post</span>
         </button>
       </div>
+
     </div>
   );
 };
