@@ -58,7 +58,7 @@ const SigninPage = () => {
                 alignItems: "center",
             }}>
             <div className="border round padding" style={{
-                width: "450px",
+                minWidth: "350px",
                 minHeight: "275px"
             }}>
                 <h5 className="center-align">Sign into your account</h5>

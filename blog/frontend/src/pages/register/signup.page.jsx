@@ -57,7 +57,7 @@ const SignupPage = () => {
                 "placeItems": "center"
             }}>
                 <div className="border round padding" style={{
-                    width: "450px",
+                    minWidth: "350px",
                     minHeight: "275px"
                 }}>
                 <h5>Sign up</h5>
