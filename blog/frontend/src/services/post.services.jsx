@@ -16,7 +16,7 @@ const update = (credentials) => {
 }
 
 const remove = (id) => {
-    return axios.delete(`${API_URL}/posts/`, + id)
+    return axios.delete(`${API_URL}/posts/${id}`)
 }
 
 

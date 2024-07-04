@@ -32,26 +32,41 @@ const HomePage = () => {
 
     function handleChange(e) {
         setValues({ ...values, [e.target.name]: e.target.value });
-    }
-
-    async function handleSave() {
+      }
+      
+      async function handleSave() {
         setLoading(true)
         try {
-            let res = await homeServices.create(values)
-            console.log(res.data)
-            
+          let res = await homeServices.create(values)
+          console.log(res.data)
+          
         } catch (error) {
-            setError("server", {
-                error,
-                type: "custom",
-                message: "Technical Error. Try again.",
-            });
+          setError("server", {
+            error,
+            type: "custom",
+            message: "Technical Error. Try again.",
+          });
         }
-    }
-
-    const handleGreeting = async () => {
-      const res = await homeServices.initializer()
-      console.log(res.data.message)
+      }
+      
+      const handleGreeting = async () => {
+        const res = await homeServices.initializer()
+        console.log(res.data.message)
+      }
+      
+      const handleRemove = async (id) =>{
+        let post = allPosts.filter(post => post.id == id)
+        try {
+          let res = await postServices.remove(id)
+          console.log(res)
+        } catch (error) {
+          const data = error.response.data
+          console.log(data)
+          setError(data.type, {
+            type: "custom",
+            message: data.message,
+          });
+        }
     }
 
     
@@ -62,6 +77,7 @@ const HomePage = () => {
       handleGreeting()
 
       const getPosts = async () => {
+
       let res =  await postServices.getAllPosts()
       console.log(res.data.posts)
       setAllPosts(res.data.posts)
@@ -81,10 +97,6 @@ const HomePage = () => {
         margin: "0 auto"
       }}>
 
-        
-
-     
-
       {
         allPosts && 
           allPosts.map(post => (
@@ -96,19 +108,16 @@ const HomePage = () => {
                  </div>
                </div>
                <nav>
-                 <button>Edit</button>
-                 <button className="border ">Delete</button>
+                 <button onClick={() => {
+
+                 }}>Edit</button>
+                 <button className="border " onClick={() => {handleRemove(post.id)}}>Delete</button>
                </nav>
              </article>
 
           ))
-
-        
       }
-
-
      </main>
-
 
       <dialog id="dialog" style={{minWidth: "568px"}}>
 

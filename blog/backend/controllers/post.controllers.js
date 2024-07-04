@@ -74,10 +74,22 @@ exports.delete = async function (req, res) {
       where: { id: req.params.id },
     });
     if (!deleted) {
-      return res.status(404).json({ error: "Post not found" });
+      return res.status(404).json(
+        { 
+          type: "post",
+          message: "Post not found"
+        }
+      );
     }
-    res.status(204).json({ message: "Post deleted" });
+    res.status(204).json(
+      { 
+        success: true,
+        message: "Post deleted"
+       }
+    );
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ 
+      type: "post",
+      message: error.message });
   }
 }
