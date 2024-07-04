@@ -9,6 +9,7 @@ const Navbar = () => {
   const handleLogout = () => {
     setIsLogout(homeServices.logout())
     setIsAuth(false)
+    window.location.reload()
   }
   useEffect(() => {
     let res = localdbServices.getItem("user")
@@ -44,7 +45,7 @@ const Navbar = () => {
             
           </div>
         </nav>
-        <div class="snackbar" id="logout-snackbar">Logout Successfully</div>
+        <div className="snackbar" id="logout-snackbar">Logout Successfully</div>
 
       </header>
        );

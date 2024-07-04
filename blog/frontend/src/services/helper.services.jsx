@@ -11,4 +11,16 @@ function getAPIURL() {
     return
 }
 
-export default {getAPIURL, helpers}
+export function formatDate(date) {
+    let _date = new Date(date);
+    let formatedDate = new Intl.DateTimeFormat("us-EN", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    }).format(_date);
+  
+    return formatedDate;
+  }
+  
+
+export default {getAPIURL, helpers, formatDate}
