@@ -23,7 +23,7 @@ const Navbar = () => {
     return ( 
     <header className="fill">
         <nav>
-          <h5 className="max">Blogging</h5>
+          <h5 className="max">CSA Blogging</h5>
          
           
           <div>
