@@ -10,4 +10,9 @@ const initializer = async () => {
     return response
 }
 
-export default { initializer }
+function logout() {
+    localdbServices.deleteItem("user")
+    return true
+}
+
+export default { initializer, logout }

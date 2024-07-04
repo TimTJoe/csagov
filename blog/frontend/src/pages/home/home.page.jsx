@@ -118,12 +118,12 @@ const HomePage = () => {
           </div>
 
             <button data-ui="#dialog" className="responsive transparent">Cancel</button>
-            <button class="responsive" type="submit">Publish</button>
+            <button className="responsive" type="submit">Publish</button>
         </form>
       </dialog>
 
       <div style={{position: "absolute", bottom: "1rem", left: "1rem"}}>
-        <button data-ui="#dialog" class="extend square round primary">
+        <button data-ui="#dialog" className="extend square round primary">
           <i>add</i>
           <span>Create Post</span>
         </button>

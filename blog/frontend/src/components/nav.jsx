@@ -1,9 +1,15 @@
+import homeServices from "@services/home.services";
 import localdbServices from "@services/localdb.services";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [isAuth, setIsAuth] = useState(false)
+  const [isLogout, setIsLogout] = useState(false)
   const [user, setUser] = useState()
+  const handleLogout = () => {
+    setIsLogout(homeServices.logout())
+    setIsAuth(false)
+  }
   useEffect(() => {
     let res = localdbServices.getItem("user")
     if(res == null) {
@@ -12,24 +18,34 @@ const Navbar = () => {
       setIsAuth(res.isAuth)
       setUser(res)
     }
-  }, [])
+  }, [, isLogout, isAuth])
     return ( 
-    <header class="fill">
+    <header className="fill">
         <nav>
-          <h5 class="max">Blogging</h5>
-          <div class="overlay blur"></div>
+          <h5 className="max">Blogging</h5>
+         
           
           <div>
             {
-              isAuth ? <a class="chip medium round">
-             <i class="medium">account_circle</i>
-
-              <span>{user.firstname}</span>
-            </a> : <a className="button" href="/signup">Sign Up</a>
+              isAuth ? 
+              <button data-ui="#menu-button">
+              <span>
+               <i className="medium">account_circle</i>
+                {user.firstname}
+                </span>
+              <i>arrow_drop_down</i>
+              <menu className="no-wrap " id="menu-button">
+                <h6 className="small-padding">{user.firstname + " " + user.lastname}</h6>
+                <a className="center-align" onClick={handleLogout} data-ui="#logout-snackbar">Log out</a>
+              </menu>
+            </button>
+            : <a className="button" href="/signin">Sign In</a>
             }
             
           </div>
         </nav>
+        <div class="snackbar" id="logout-snackbar">Logout Successfully</div>
+
       </header>
        );
 }
